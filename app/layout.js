@@ -19,8 +19,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${josefin.className} relative antialiased bg-primary-950 text-primary-100 min-h-screen flex flex-col`}>
         <Header />
-        <div className="flex-1 px-8">
-          <main className="mx-auto max-w-7xl ">{children}</main>
+        <div className="flex-1 px-8 grid">
+          <main className="mx-auto max-w-7xl w-full ">{children}</main>
         </div>
       </body>
     </html>
