@@ -1,5 +1,6 @@
 import { eachDayOfInterval } from "date-fns";
 import { supabase } from "./supabase";
+import { notFound } from "next/navigation";
 
 /////////////
 // GET
@@ -16,6 +17,7 @@ export async function getCabin(id) {
 
   if (error) {
     console.error(error);
+    notFound();
   }
 
   return data;
@@ -49,6 +51,8 @@ export const getCabins = async function () {
 
   return data;
 };
+
+// become dynamic routes to static
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
