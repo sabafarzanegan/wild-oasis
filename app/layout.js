@@ -1,5 +1,4 @@
-import Logo from "../src/components/Logo";
-import Navigation from "../src/components/Navigation.js";
+import { ReservationProvider } from "@/src/components/ReservationContext";
 import "../src/_styles/global.css";
 import { Josefin_Sans } from "next/font/google";
 import Header from "@/src/components/Header";
@@ -20,7 +19,9 @@ export default function RootLayout({ children }) {
         className={`${josefin.className} relative antialiased bg-primary-950 text-primary-100 min-h-screen flex flex-col`}>
         <Header />
         <div className="flex-1 px-8 grid">
-          <main className="mx-auto max-w-7xl w-full ">{children}</main>
+          <main className="mx-auto max-w-7xl w-full ">
+            <ReservationProvider>{children}</ReservationProvider>
+          </main>
         </div>
       </body>
     </html>

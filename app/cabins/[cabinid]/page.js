@@ -1,7 +1,17 @@
-import { getCabin, getCabins } from "@/src/_lib/data-server";
+import {
+  getBookedDatesByCabinId,
+  getCabin,
+  getCabins,
+  getSettings,
+} from "@/src/_lib/data-server";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import TextExpander from "@/src/components/TextExpander";
+import DateSelector from "@/src/components/DateSelector";
+import ReservationForm from "@/src/components/ReservationForm";
+import Reservation from "@/src/components/Reservation";
+import { Suspense } from "react";
+import Spinner from "@/src/components/Spinner";
 
 // PLACEHOLDER DATA
 // export async function generateStaticParams() {
@@ -13,10 +23,17 @@ import TextExpander from "@/src/components/TextExpander";
 // }
 
 export default async function Page({ params }) {
-  const cabin = await getCabin(params.cabinid);
+  // const cabin = await getCabin(params.cabinid);
+  // const settings = await getSettings();
+  // const bookesDates = await getBookedDatesByCabinId(params.cabinid);
+
+  const [cabin, settings, bookedDates] = await Promise.all([
+    getCabin(params.cabinid),
+    getSettings(),
+    getBookedDatesByCabinId(params.cabinid),
+  ]);
   const { id, name, maxCapacity, regularPrice, discount, image, discription } =
     cabin;
-
   return (
     <div className="max-w-6xl mx-auto mt-8">
       <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
@@ -63,9 +80,12 @@ export default async function Page({ params }) {
       </div>
 
       <div>
-        <h2 className="text-5xl font-semibold text-center">
-          Reserve today. Pay on arrival.
+        <h2 className="text-5xl font-semibold text-center text-accent-500 mb-10">
+          Reserve {name} today. Pay on arrival.
         </h2>
+        <Suspense fallback={<Spinner />}>
+          <Reservation cabin={cabin} />
+        </Suspense>
       </div>
     </div>
   );
