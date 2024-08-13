@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { auth } from "../_lib/auth";
 
-function Navigation() {
+async function Navigation() {
+  const session = await auth();
+
   return (
     <>
       <nav className="z-10 text-xl">
@@ -19,12 +22,13 @@ function Navigation() {
               About
             </Link>
           </li>
-          <li>
+          <li className="flex items-center justify-center gap-x-4">
             <Link
               href="/account"
               className="hover:text-accent-400 transition-colors">
               Guest area
             </Link>
+            {session ? <p className="text-sm">{session.user.name}</p> : ""}
           </li>
         </ul>
       </nav>
