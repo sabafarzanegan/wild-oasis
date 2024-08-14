@@ -1,11 +1,15 @@
+import { getGuest } from "@/src/_lib/data-server";
 import ProfileFormUpdate from "@/src/components/ProfileFormUpdate";
 import SelectCountry from "@/src/components/SelectCountry";
+import { auth } from "@/src/_lib/auth";
 
 export const metadata = {
   title: "Update profile",
 };
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+  const guest = await getGuest(session.user.email);
   // CHANGE
   const countryFlag = "pt.jpg";
   const nationality = "portugal";
@@ -20,12 +24,12 @@ export default function Page() {
         Providing the following information will make your check-in process
         faster and smoother. See you soon!
       </p>
-      <ProfileFormUpdate>
+      <ProfileFormUpdate guest={guest}>
         <SelectCountry
           name="nationality"
           id="nationality"
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-          defaultCountry={nationality}
+          defaultCountry={guest.nationality}
         />
       </ProfileFormUpdate>
     </div>

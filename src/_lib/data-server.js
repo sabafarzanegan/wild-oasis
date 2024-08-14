@@ -189,7 +189,7 @@ export async function createBooking(newBooking) {
 // The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(id, updatedFields) {
   const { data, error } = await supabase
-    .from("guests")
+    .from("guest")
     .update(updatedFields)
     .eq("id", id)
     .select()
