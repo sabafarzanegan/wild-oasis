@@ -1,7 +1,12 @@
-import ReservationCard from "@/src/components/ReservationCard";
+import { auth } from "@/src/_lib/auth";
+import { getBookings } from "@/src/_lib/data-server";
 
-function page() {
-  const bookings = [];
+import ReservationCard from "@/src/components/ReservationCard";
+import { supabase } from "./../../../src/_lib/supabase";
+
+async function page() {
+  const session = await auth();
+  const bookings = await getBookings(session.user.guestId);
 
   return (
     <div>

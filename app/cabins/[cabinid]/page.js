@@ -25,12 +25,12 @@ import Spinner from "@/src/components/Spinner";
 export default async function Page({ params }) {
   // const cabin = await getCabin(params.cabinid);
   // const settings = await getSettings();
-  // const bookesDates = await getBookedDatesByCabinId(params.cabinid);
+  const bookesDates = await getBookedDatesByCabinId(params.cabinid);
 
   const [cabin, settings, bookedDates] = await Promise.all([
     getCabin(params.cabinid),
     getSettings(),
-    getBookedDatesByCabinId(params.cabinid),
+    // getBookedDatesByCabinId(params.cabinid),
   ]);
   const { id, name, maxCapacity, regularPrice, discount, image, discription } =
     cabin;
